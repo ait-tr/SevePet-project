@@ -23,7 +23,7 @@ public class Pet {
     String breed;
     String gender;
     int age;
-    Boolean disability;//true,false;
+    Boolean disability;
     String photo;
     String country;
     String city;

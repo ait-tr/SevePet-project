@@ -13,5 +13,5 @@ public interface PetRepository extends CrudRepository<Pet,String> {
     Stream<Pet> findByCountry(String country);
     Stream<Pet> findByCategory(String category);
     Stream<Pet> findByGender(String gender);
-    Stream<Pet> findByDisability(String disability);
+    Stream<Pet> findByDisability(Boolean disability);
 }

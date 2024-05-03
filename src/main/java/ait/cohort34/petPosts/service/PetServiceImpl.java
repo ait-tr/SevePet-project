@@ -59,7 +59,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Iterable<PetDto> findPetsByDisability(String disability) {
+    public Iterable<PetDto> findPetsByDisability(Boolean disability) {
         return petRepository.findByDisability(disability)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();

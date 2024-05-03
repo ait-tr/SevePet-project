@@ -39,7 +39,7 @@ public class PetController{
         return petService.findPetsByCategory(category);
     }
     @GetMapping("/disability/{disability}")
-    public Iterable<PetDto> findPetsByDisability(@PathVariable String disability) {
+    public Iterable<PetDto> findPetsByDisability(@PathVariable Boolean disability) {
         return petService.findPetsByDisability(disability);
     }
     @DeleteMapping("/{caption}")

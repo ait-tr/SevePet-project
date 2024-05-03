@@ -10,6 +10,6 @@ public interface PetService {
     Iterable<PetDto> findPetsByGender(String gender);
     Iterable<PetDto> findPetsByCountry(String country);
     Iterable<PetDto> findPetsByCategory(String category);
-    Iterable<PetDto> findPetsByDisability(String disability);
+    Iterable<PetDto> findPetsByDisability(Boolean disability);
     PetDto removePetByCaption(String caption);
 }

@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class Pet {
     @Id
     String caption;
+    String author;
     String type;
     String category;
     String breed;

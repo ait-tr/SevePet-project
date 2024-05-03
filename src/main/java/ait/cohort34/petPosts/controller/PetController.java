@@ -14,9 +14,9 @@ public class PetController{
     @Autowired
     final PetService petService;
 
-    @PostMapping("")
-    public PetDto addNewPet(@RequestBody NewPetDto newPetDto) {
-        return petService.addNewPet(newPetDto);
+    @PostMapping("/{author}")
+    public PetDto addNewPet(@PathVariable String author,@RequestBody NewPetDto newPetDto) {
+        return petService.addNewPet(author,newPetDto);
     }
     @GetMapping("/caption/{caption}")
     public PetDto findPetByCaption(@PathVariable String caption) {

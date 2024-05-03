@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NewPetDto {
     String caption;
+    String author;
     String type;
     String category;
     String breed;

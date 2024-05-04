@@ -24,7 +24,7 @@ public class PetDto {
     String city;
     String description;
     String clas;
-    String PersonFirstName;
-    String PersonLastName;
+    String personFirstName;
+    String personLastName;
     LocalDate dateCreate;
 }

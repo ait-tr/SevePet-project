@@ -31,39 +31,53 @@ public class PetServiceImpl implements PetService {
         Pet pet=petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
         return modelMapper.map(pet, PetDto.class);
     }
+    @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByAge(int age) {
         return petRepository.findByAge(age)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByGender(String gender) {
-        return petRepository.findByGender(gender)
+        return petRepository.findByGenderIgnoreCase(gender)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByCountry(String country) {
-        return petRepository.findByCountry(country)
+        return petRepository.findByCountryIgnoreCase(country)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByCategory(String category) {
-        return petRepository.findByCategory(category)
+        return petRepository.findByCategoryIgnoreCase(category)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByDisability(Boolean disability) {
         return petRepository.findByDisability(disability)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
+    }
+    @Transactional(readOnly = true)
+    @Override
+    public Iterable<PetDto> findPetsByAuthor(String author) {
+        return petRepository.findByAuthorIgnoreCase(author)
+                .map(s->modelMapper.map(s,PetDto.class))
+                .toList();
+    }
+
+    @Override
+    public Iterable<PetDto> findAllPets() {
+        return petRepository.findAll().stream().map(s->modelMapper.map(s,PetDto.class)).toList();
     }
 
     @Override

@@ -1,12 +1,14 @@
 package ait.cohort34.petPosts.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.time.LocalDate;
 
@@ -14,7 +16,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "caption")
-@Document(collection = "pets")
+@Entity
+@Table(name = "pets")
 public class Pet {
     @Id
     String caption;
@@ -30,15 +33,16 @@ public class Pet {
     String city;
     String description;
     String clas;
-    String PersonFirstName;
-    String PersonLastName;
+    String personFirstName;
+    String personLastName;
     LocalDate dateCreate  = LocalDate.now();
+    //deadline data
 
     public Pet(String caption, String type, String personLastName, String personFirstName, String clas, String description, String city, String country, String photo, Boolean disability, int age, String gender, String breed, String category) {
         this.caption = caption;
         this.type = type;
-        PersonLastName = personLastName;
-        PersonFirstName = personFirstName;
+        this.personLastName = personLastName;
+        this.personFirstName = personFirstName;
         this.clas = clas;
         this.description = description;
         this.city = city;

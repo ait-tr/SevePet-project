@@ -43,6 +43,15 @@ public class PetController{
     public Iterable<PetDto> findPetsByDisability(@PathVariable Boolean disability) {
         return petService.findPetsByDisability(disability);
     }
+    @GetMapping("author/{author}")
+    public Iterable<PetDto> findPetsByAuthor(@PathVariable String author) {
+        return petService.findPetsByAuthor(author);
+    }
+    @GetMapping("/all")
+    public Iterable<PetDto> findAll() {
+        return petService.findAllPets();
+    }
+
     @DeleteMapping("/{caption}")
     public PetDto removePetByCaption(@PathVariable String caption) {
         return petService.removePetByCaption(caption);

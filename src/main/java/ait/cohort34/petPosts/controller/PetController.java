@@ -2,6 +2,7 @@ package ait.cohort34.petPosts.controller;
 
 import ait.cohort34.petPosts.dto.NewPetDto;
 import ait.cohort34.petPosts.dto.PetDto;
+import ait.cohort34.petPosts.dto.UpdatePetDto;
 import ait.cohort34.petPosts.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,10 @@ public class PetController{
     @GetMapping("/find/all")
     public Iterable<PetDto> findAll() {
         return petService.findAllPets();
+    }
+    @PutMapping("/update/{caption}")
+    public PetDto updatePet(@PathVariable String caption,@RequestBody UpdatePetDto updatePetDto) {
+        return petService.updatePet(caption,updatePetDto);
     }
 
     @DeleteMapping("/{caption}")

@@ -64,12 +64,12 @@ public class AuthorizationConfiguration {
                 .requestMatchers(HttpMethod.POST, "/pet/add/{author}")
                         .access(new WebExpressionAuthorizationManager("#author == authentication.name "))
 
-                .requestMatchers(HttpMethod.PUT,"/forum/post/{id}")
+                .requestMatchers(HttpMethod.PUT,"/pet/update/{caption}")
 //определяется логика доступа к указанному эндпоинту.
 // Это лямбда-выражение, которое принимает объекты authentication и context.
 // Внутри него вызывается метод webSecurity.checkPostAuthor, который проверяет,
 // является ли текущий пользователь автором поста с указанным идентификатором
-                        .access((authentication, context) -> new AuthorizationDecision(webSecurity.checkPostAuthor( context.getVariables().get("id"),authentication.get().getName())))
+                        .access((authentication, context) -> new AuthorizationDecision(webSecurity.checkPostAuthor( context.getVariables().get("caption"),authentication.get().getName())))
 
                 .requestMatchers(HttpMethod.DELETE, "/pet/{caption}")
                         .access((authentication, context) -> {

@@ -6,14 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
-
 @Getter
-@EqualsAndHashCode(of = "caption")
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewPetDto {
-    String caption;
-    String author;
+public class UpdatePetDto {
     String type;
     String category;
     String breed;
@@ -25,6 +21,4 @@ public class NewPetDto {
     String city;
     String description;
     String firma;
-    String personFirstName;
-    String personLastName;
 }

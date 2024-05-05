@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @EqualsAndHashCode(of = "caption")
@@ -19,11 +20,11 @@ public class PetDto {
     String gender;
     int age;
     Boolean disability;
-    String photo;
+    Set<String> photo;
     String country;
     String city;
     String description;
-    String clas;
+    String firma;
     String personFirstName;
     String personLastName;
     LocalDate dateCreate;

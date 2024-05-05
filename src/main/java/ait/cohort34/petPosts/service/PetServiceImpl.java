@@ -3,6 +3,7 @@ package ait.cohort34.petPosts.service;
 import ait.cohort34.petPosts.dao.PetRepository;
 import ait.cohort34.petPosts.dto.NewPetDto;
 import ait.cohort34.petPosts.dto.PetDto;
+import ait.cohort34.petPosts.dto.UpdatePetDto;
 import ait.cohort34.petPosts.dto.exseption.PetNotFoundException;
 import ait.cohort34.petPosts.model.Pet;
 import lombok.RequiredArgsConstructor;
@@ -78,6 +79,24 @@ public class PetServiceImpl implements PetService {
     @Override
     public Iterable<PetDto> findAllPets() {
         return petRepository.findAll().stream().map(s->modelMapper.map(s,PetDto.class)).toList();
+    }
+
+    @Override
+    public PetDto updatePet(String caption, UpdatePetDto updatePetDto) {
+        Pet pet = petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
+        pet.setCategory(updatePetDto.getCategory());
+        pet.setGender(updatePetDto.getGender());
+        pet.setAge(updatePetDto.getAge());
+        pet.setCountry(updatePetDto.getCountry());
+        pet.setDisability(updatePetDto.getDisability());
+        pet.setCity(updatePetDto.getCity());
+        pet.setDescription(updatePetDto.getDescription());
+        pet.setBreed(updatePetDto.getBreed());
+        pet.setFirma(updatePetDto.getFirma());
+        pet.setType(updatePetDto.getType());
+        pet.setPhoto(updatePetDto.getPhoto());
+        petRepository.save(pet);
+        return modelMapper.map(pet, PetDto.class);
     }
 
     @Override

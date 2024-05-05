@@ -2,6 +2,7 @@ package ait.cohort34.petPosts.service;
 
 import ait.cohort34.petPosts.dto.NewPetDto;
 import ait.cohort34.petPosts.dto.PetDto;
+import ait.cohort34.petPosts.dto.UpdatePetDto;
 
 public interface PetService {
     PetDto addNewPet(String author,NewPetDto newPetDto);
@@ -13,5 +14,6 @@ public interface PetService {
     Iterable<PetDto> findPetsByDisability(Boolean disability);
     Iterable<PetDto> findPetsByAuthor(String author);
     Iterable<PetDto> findAllPets();
+    PetDto updatePet(String Caption, UpdatePetDto updatePetDto);
     PetDto removePetByCaption(String caption);
 }

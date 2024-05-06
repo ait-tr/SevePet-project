@@ -5,7 +5,7 @@ import ait.cohort34.petPosts.dto.PetDto;
 import ait.cohort34.petPosts.dto.UpdatePetDto;
 
 public interface PetService {
-    PetDto addNewPet(String author,NewPetDto newPetDto);
+    PetDto addNewPet(NewPetDto newPetDto);
     PetDto findPetByCaption(String caption);
     Iterable<PetDto> findPetsByAge(String age);
     Iterable<PetDto> findPetsByGender(String gender);

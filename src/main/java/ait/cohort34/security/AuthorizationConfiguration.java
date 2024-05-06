@@ -45,7 +45,7 @@ public class AuthorizationConfiguration {
 
 
 // ?- символ, *- 0 или одно слово, **- 0 или более директорий в пути, {}- regex-выражение
-                .requestMatchers("/account/register", "/pet/find/**").permitAll()
+                .requestMatchers("/account/register", "/pet/found/**").permitAll()
 
                 .requestMatchers("/account/user/{login}/role").hasRole(Role.ADMINISTRATOR.name())
 

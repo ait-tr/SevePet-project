@@ -15,46 +15,46 @@ public class PetController{
     @Autowired
     final PetService petService;
 
-    @PostMapping("/add/{author}")
-    public PetDto addNewPet(@PathVariable String author,@RequestBody NewPetDto newPetDto) {
-        return petService.addNewPet(author,newPetDto);
+    @PostMapping
+    public PetDto addNewPet(@RequestBody NewPetDto newPetDto) {//сделать запрос по токену
+        return petService.addNewPet(newPetDto);
         // в дальнейшем при создании поста будет передаваться принципал логин что упростит отправку запроса
     }
-    @GetMapping("/find/caption/{caption}")
+    @GetMapping("/found/caption/{caption}")
     public PetDto findPetByCaption(@PathVariable String caption) {
         return petService.findPetByCaption(caption);
     }
-    @GetMapping("/find/age/{age}")
+    @GetMapping("/found/age/{age}")
     public Iterable<PetDto> findPetsByAge(@PathVariable String age) {
         return petService.findPetsByAge(age);
     }
-    @GetMapping("/find/gender/{gender}")
+    @GetMapping("/found/gender/{gender}")
     public Iterable<PetDto> findPetsByGender(@PathVariable String gender) {
         return petService.findPetsByGender(gender);
     }
-    @GetMapping("/find/country/{country}")
+    @GetMapping("/found/country/{country}")
     public Iterable<PetDto> findPetsByCountry(@PathVariable String country) {
         return petService.findPetsByCountry(country);
     }
-    @GetMapping("/find/category/{category}")
+    @GetMapping("/found/category/{category}")
     public Iterable<PetDto> findPetsByCategory(@PathVariable String category) {
         return petService.findPetsByCategory(category);
     }
-    @GetMapping("/find/disability/{disability}")
+    @GetMapping("/found/disability/{disability}")
     public Iterable<PetDto> findPetsByDisability(@PathVariable Boolean disability) {
         return petService.findPetsByDisability(disability);
     }
-    @GetMapping("/find/author/{author}")
+    @GetMapping("/found/author/{author}")
     public Iterable<PetDto> findPetsByAuthor(@PathVariable String author) {
         return petService.findPetsByAuthor(author);
     }
-    @GetMapping("/find/all")
+    @GetMapping("/found")
     public Iterable<PetDto> findAll() {
         return petService.findAllPets();
     }
-    @PutMapping("/update/{caption}")
-    public PetDto updatePet(@PathVariable String caption,@RequestBody UpdatePetDto updatePetDto) {
-        return petService.updatePet(caption,updatePetDto);
+    @PutMapping("/update/{id}")
+    public PetDto updatePet(@PathVariable String id,@RequestBody UpdatePetDto updatePetDto) {
+        return petService.updatePet(id,updatePetDto);
     }
 
     @PutMapping("/addTime/{id}")

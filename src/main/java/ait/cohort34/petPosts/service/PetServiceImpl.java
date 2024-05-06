@@ -29,12 +29,12 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetDto findPetByCaption(String caption) {
-        Pet pet=petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
+        Pet pet=petRepository.findByCaptionIgnoreCase(caption).orElseThrow(PetNotFoundException::new);
         return modelMapper.map(pet, PetDto.class);
     }
     @Transactional(readOnly = true)
     @Override
-    public Iterable<PetDto> findPetsByAge(int age) {
+    public Iterable<PetDto> findPetsByAge(String age) {
         return petRepository.findByAge(age)
                 .map(s->modelMapper.map(s,PetDto.class))
                 .toList();
@@ -78,12 +78,14 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Iterable<PetDto> findAllPets() {
+
         return petRepository.findAll().stream().map(s->modelMapper.map(s,PetDto.class)).toList();
     }
 
     @Override
     public PetDto updatePet(String caption, UpdatePetDto updatePetDto) {
         Pet pet = petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
+        pet.setCaption(updatePetDto.getCaption());
         pet.setCategory(updatePetDto.getCategory());
         pet.setGender(updatePetDto.getGender());
         pet.setAge(updatePetDto.getAge());
@@ -92,9 +94,15 @@ public class PetServiceImpl implements PetService {
         pet.setCity(updatePetDto.getCity());
         pet.setDescription(updatePetDto.getDescription());
         pet.setBreed(updatePetDto.getBreed());
-        pet.setFirma(updatePetDto.getFirma());
         pet.setType(updatePetDto.getType());
         pet.setPhoto(updatePetDto.getPhoto());
+        petRepository.save(pet);
+        return modelMapper.map(pet, PetDto.class);
+    }
+    @Override
+    public PetDto plusDeadLine(String id){
+        Pet pet = petRepository.findById(id).orElseThrow(PetNotFoundException::new);
+        pet.plusDeadline();
         petRepository.save(pet);
         return modelMapper.map(pet, PetDto.class);
     }

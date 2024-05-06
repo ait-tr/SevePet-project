@@ -5,7 +5,6 @@ import ait.cohort34.accounting.dto.UserDto;
 import ait.cohort34.accounting.dto.UserEditDto;
 import ait.cohort34.accounting.dto.UserRegisterDto;
 import ait.cohort34.accounting.dto.exceptions.UserExistsException;
-import ait.cohort34.accounting.dto.exceptions.UserNotAgreeException;
 import ait.cohort34.accounting.dto.exceptions.UserNotFoundException;
 import ait.cohort34.accounting.model.UserAccount;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +28,6 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
     @Override
     @Transactional
     public UserDto register(UserRegisterDto userRegisterDto) {
-
-        if (!userRegisterDto.getIsAgree()) {
-            throw new UserNotAgreeException("You must accept the user agreement.");
-        }
-
         if (userAccountRepository.existsById(userRegisterDto.getLogin())) {
             throw new UserExistsException("A user with this login already exists.");
         }
@@ -68,11 +62,23 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
     @Override
     public UserDto updateUser(String login, UserEditDto userEditDto) {
         UserAccount userAccount = userAccountRepository.findById(login).orElseThrow(UserNotFoundException::new);
-        if (userEditDto.getOrganizationName() != null) {
-            userAccount.setOrganizationName(userEditDto.getOrganizationName());
-        }
         if (userEditDto.getFullName() != null) {
             userAccount.setFullName(userEditDto.getFullName());
+        }
+        if (userEditDto.getEmail() != null) {
+            userAccount.setEmail(userEditDto.getEmail());
+        }
+        if (userEditDto.getPhone() != null) {
+            userAccount.setPhone(userEditDto.getPhone());
+        }
+        if (userEditDto.getTelegram() != null) {
+            userAccount.setTelegram(userEditDto.getTelegram());
+        }
+        if (userEditDto.getWebsite() != null) {
+            userAccount.setWebsite(userEditDto.getWebsite());
+        }
+        if (userEditDto.getAvatar() != null) {
+            userAccount.setAvatar(userEditDto.getAvatar());
         }
         userAccountRepository.save(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
@@ -104,7 +110,7 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
     public void run(String... args) throws Exception {
         if (!userAccountRepository.existsById("admin")) {
             String password = passwordEncoder.encode("admin");
-            UserAccount userAccount = new UserAccount("admin", password, "", "","","","","","");
+            UserAccount userAccount = new UserAccount("admin", "", password, "","","","","");
             userAccount.changeRole();
             userAccountRepository.save(userAccount);
         }

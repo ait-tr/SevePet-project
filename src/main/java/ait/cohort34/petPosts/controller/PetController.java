@@ -25,7 +25,7 @@ public class PetController{
         return petService.findPetByCaption(caption);
     }
     @GetMapping("/find/age/{age}")
-    public Iterable<PetDto> findPetsByAge(@PathVariable int age) {
+    public Iterable<PetDto> findPetsByAge(@PathVariable String age) {
         return petService.findPetsByAge(age);
     }
     @GetMapping("/find/gender/{gender}")
@@ -55,6 +55,11 @@ public class PetController{
     @PutMapping("/update/{caption}")
     public PetDto updatePet(@PathVariable String caption,@RequestBody UpdatePetDto updatePetDto) {
         return petService.updatePet(caption,updatePetDto);
+    }
+
+    @PutMapping("/addTime/{id}")
+    public PetDto updatePetTime(@PathVariable String id) {
+        return petService.plusDeadLine(id);
     }
 
     @DeleteMapping("/{caption}")

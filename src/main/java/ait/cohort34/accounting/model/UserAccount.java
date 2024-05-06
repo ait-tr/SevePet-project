@@ -16,25 +16,22 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "login")
 @Table(name = "users")
 public class UserAccount {
-
     @Id
     private String login;
+    private String avatar;
     private String password;
-    private String organizationName;
     private String fullName;
-    private String clas;//? у Ярослава
     private String email;
     private String website;
-    private String phone;//?
-    private String telegram;
+    private String phone;
+    private String telegram;//возможность заменить на чат
     private Role role= Role.USER; // задаю начальную роль пользователя
 
-    public UserAccount(String login, String password, String organizationName, String fullName, String clas, String email, String website, String phone, String telegram) {
+    public UserAccount(String login,String avatar, String password, String fullName, String email, String website, String phone, String telegram) {
         this.login = login;
+        this.avatar = avatar;
         this.password = password;
-        this.organizationName=organizationName;
         this.fullName=fullName;
-        this.clas = clas;
         this.email = email;
         this.website = website;
         this.phone = phone;

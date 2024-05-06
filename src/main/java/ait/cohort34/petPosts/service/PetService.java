@@ -7,7 +7,7 @@ import ait.cohort34.petPosts.dto.UpdatePetDto;
 public interface PetService {
     PetDto addNewPet(String author,NewPetDto newPetDto);
     PetDto findPetByCaption(String caption);
-    Iterable<PetDto> findPetsByAge(int age);
+    Iterable<PetDto> findPetsByAge(String age);
     Iterable<PetDto> findPetsByGender(String gender);
     Iterable<PetDto> findPetsByCountry(String country);
     Iterable<PetDto> findPetsByCategory(String category);
@@ -15,5 +15,6 @@ public interface PetService {
     Iterable<PetDto> findPetsByAuthor(String author);
     Iterable<PetDto> findAllPets();
     PetDto updatePet(String Caption, UpdatePetDto updatePetDto);
+    PetDto plusDeadLine(String id);
     PetDto removePetByCaption(String caption);
 }

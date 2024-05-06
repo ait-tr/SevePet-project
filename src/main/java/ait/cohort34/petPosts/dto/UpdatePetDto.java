@@ -10,11 +10,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdatePetDto {
+    String caption;
     String type;
     String category;
     String breed;
     String gender;
-    int age;
+    String age;
     Boolean disability;
     Set<String> photo;
     String country;

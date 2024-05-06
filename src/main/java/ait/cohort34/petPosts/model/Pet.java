@@ -14,36 +14,32 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = "caption")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "pets")
 public class Pet {
     @Id
+    String id;
     String caption;
     String author;
     String type;
     String category;
     String breed;
     String gender;
-    int age;
+    String age;//String
     Boolean disability;
     @ElementCollection
     Set<String> photo;
     String country;
     String city;
     String description;
-    String firma;
-    String personFirstName;
-    String personLastName;
     LocalDate dateCreate  = LocalDate.now();
-    //deadline data
+    LocalDate deadline = LocalDate.now().plusMonths(3);
 
-    public Pet(String caption, String type, String personLastName, String personFirstName, String firma, String description, String city, String country, Set<String> photo, Boolean disability, int age, String gender, String breed, String category) {
+    public Pet(String id,String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String breed, String category) {
+        this.id = id;
         this.caption = caption;
         this.type = type;
-        this.personLastName = personLastName;
-        this.personFirstName = personFirstName;
-        this.firma = firma;
         this.description = description;
         this.city = city;
         this.country = country;
@@ -53,5 +49,9 @@ public class Pet {
         this.gender = gender;
         this.breed = breed;
         this.category = category;
+    }
+    //добавить метод по продлению дедлайна
+    public LocalDate plusDeadline() {
+        return deadline.plusMonths(3);
     }
 }

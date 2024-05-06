@@ -83,8 +83,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public PetDto updatePet(String caption, UpdatePetDto updatePetDto) {
-        Pet pet = petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
+    public PetDto updatePet(String id, UpdatePetDto updatePetDto) {
+        Pet pet = petRepository.findById(id).orElseThrow(PetNotFoundException::new);
         pet.setCaption(updatePetDto.getCaption());
         pet.setCategory(updatePetDto.getCategory());
         pet.setGender(updatePetDto.getGender());

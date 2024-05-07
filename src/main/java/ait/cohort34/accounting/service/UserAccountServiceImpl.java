@@ -5,19 +5,16 @@ import ait.cohort34.accounting.dao.UserAccountRepository;
 import ait.cohort34.accounting.dto.*;
 import ait.cohort34.accounting.dto.exceptions.UserExistsException;
 import ait.cohort34.accounting.dto.exceptions.UserNotFoundException;
-import ait.cohort34.accounting.model.Role;
 import ait.cohort34.accounting.model.UserAccount;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,21 +36,6 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
         userAccount.setPassword(password);
         userAccountRepository.save(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
-//        if (userAccountRepository.findById(request.getLogin()).isEmpty()) {
-//            UserAccount newAccount = modelMapper.map(request, UserAccount.class);
-//            Optional<Role> defaultRole = roleRepository.findByName("USER");
-//
-//            if (defaultRole.isPresent()) {
-//                newAccount.setRole(defaultRole.get());
-//            } else {
-//                throw new UserNotFoundException();
-//            }
-//
-//            UserAccount savedUser = userAccountRepository.save(newAccount);
-//            return modelMapper.map(savedUser, UserCreateResponseDTO.class);
-//        } else {
-//            throw new UserExistsException("Manager with name " + request.getLogin() + " is already exist!");
-//        }
     }
 
     @Override

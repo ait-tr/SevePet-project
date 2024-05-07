@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
+@Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@EqualsAndHashCode(of = "login")
+@AllArgsConstructor
 @Table(name = "users")
 public class UserAccount implements UserDetails {
     @Id

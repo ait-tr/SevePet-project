@@ -1,4 +1,4 @@
-package ait.cohort34.petPosts.dto.exseption;
+package ait.cohort34.accounting.dto.exceptions;
 
 public class InvalidJwtException extends RuntimeException {
 

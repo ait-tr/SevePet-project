@@ -1,12 +1,12 @@
 package ait.cohort34.security;
 
-import ait.cohort34.security.auth.CustomUserDetailsService;
-import ait.cohort34.security.auth.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import ait.cohort34.accounting.service.auth.CustomUserDetailsService;
+import ait.cohort34.accounting.service.auth.JwtTokenProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
 
-            if (request.getRequestURI().startsWith("/pet/found") || request.getRequestURI().startsWith("/api/auth")) {
+            if (request.getRequestURI().startsWith("/pet/found") || request.getRequestURI().startsWith("/account")) {
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -45,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception ex) {
             logger.error("Could not set user authentication in security context", ex);
         }
+
         filterChain.doFilter(request, response);
     }
 

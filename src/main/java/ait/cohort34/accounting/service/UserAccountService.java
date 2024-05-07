@@ -1,8 +1,6 @@
 package ait.cohort34.accounting.service;
 
-import ait.cohort34.accounting.dto.UserDto;
-import ait.cohort34.accounting.dto.UserEditDto;
-import ait.cohort34.accounting.dto.UserRegisterDto;
+import ait.cohort34.accounting.dto.*;
 
 import java.util.List;
 

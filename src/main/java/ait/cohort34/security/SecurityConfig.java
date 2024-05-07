@@ -1,6 +1,5 @@
 package ait.cohort34.security;
 
-import ait.cohort34.accounting.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,48 +10,63 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    final CustomWebSecurity webSecurity;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        //return new BCryptPasswordEncoder();
         return NoOpPasswordEncoder.getInstance();
     }
 
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(
-                        autz->autz
-                                .requestMatchers("/account/register").hasRole((Role.USER.name()))
-                                .requestMatchers("/pet/found/**").permitAll()
-                                .requestMatchers("/api/auth").permitAll()
-                                .requestMatchers("/account/user/{login}/role").hasRole(Role.ADMINISTRATOR.name())
-                                .requestMatchers(HttpMethod.GET,"/account/users").hasRole(Role.ADMINISTRATOR.name())//Почему только админ может получить User;
-                                .requestMatchers(HttpMethod.PUT,"/account/user/{login}").hasRole((Role.USER.name()))
-                                .requestMatchers(HttpMethod.DELETE,"/account/user/{login}").hasRole(Role.ADMINISTRATOR.name())
-                                .requestMatchers(HttpMethod.POST, "/pet/add/{author}").hasAnyRole((Role.USER.name()),(Role.ADMINISTRATOR.name()))
-                                .requestMatchers(HttpMethod.PUT,"/pet/update/{id}").hasRole((Role.USER.name()))
-                                .requestMatchers(HttpMethod.DELETE, "/pet/{caption}").hasAnyRole((Role.USER.name()),(Role.ADMINISTRATOR.name()))
-                                .anyRequest().authenticated())
-                                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(authz -> authz
+                        .requestMatchers("/api/auth").permitAll()
+                        .requestMatchers("/pet/found/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/account").permitAll()
+                        .requestMatchers("/account/login").permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new BasicAuthFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class))), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf(AbstractHttpConfigurer::disable);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
 
     @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/account", configuration);
+        return source;
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
 }

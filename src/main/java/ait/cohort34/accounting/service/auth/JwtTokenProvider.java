@@ -1,9 +1,10 @@
-package ait.cohort34.security.auth;
+package ait.cohort34.accounting.service.auth;
 
-import ait.cohort34.petPosts.dto.exseption.InvalidJwtException;
+
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.SignatureException;
+import ait.cohort34.accounting.dto.exceptions.InvalidJwtException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,12 +18,12 @@ public class JwtTokenProvider {
     @Value("${jwt.lifetime}")
     private long jwtLifetime;
 
-    public String createToken(String username) {
+    public String createToken(UserDetails userDetails) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtLifetime);
 
         return Jwts.builder()
-                .setSubject(username)
+                //.setSubject()
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)

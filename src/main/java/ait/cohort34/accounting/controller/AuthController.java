@@ -1,11 +1,12 @@
 package ait.cohort34.accounting.controller;
 
-import ait.cohort34.accounting.dto.auth.AuthRequest;
-import ait.cohort34.accounting.dto.auth.AuthResponse;
-import ait.cohort34.security.auth.JwtTokenProvider;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ait.cohort34.accounting.dto.auth.AuthRequest;
+import ait.cohort34.accounting.dto.auth.AuthResponse;
+import ait.cohort34.accounting.service.auth.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

@@ -16,5 +16,5 @@ public interface PetService {
     Iterable<PetDto> findAllPets();
     PetDto updatePet(String id, UpdatePetDto updatePetDto);
     PetDto plusDeadLine(String id);
-    PetDto removePetByCaption(String caption);
+    PetDto removePetByCaption(String id);
 }

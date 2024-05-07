@@ -1,6 +1,5 @@
 package ait.cohort34.security;
 
-import ait.cohort34.accounting.model.Role;
 import ait.cohort34.accounting.model.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,22 +7,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-public class UsersDetails implements UserDetails {
+public class UserAccountDetails implements UserDetails {
+    private final UserAccount userAccount;
 
-    private UserAccount userAccount;
-
-    public UsersDetails(UserAccount userAccount) {
+    public UserAccountDetails(UserAccount userAccount) {
         this.userAccount = userAccount;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        Role userRole = userAccount.getRole();
-        String roleName = userRole.name();
-        return Collections.singletonList(new SimpleGrantedAuthority(roleName));
+        return Collections.singletonList(new SimpleGrantedAuthority(userAccount.getRole().name()));
     }
 
     @Override

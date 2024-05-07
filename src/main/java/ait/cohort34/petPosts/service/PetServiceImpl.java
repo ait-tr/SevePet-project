@@ -99,6 +99,7 @@ public class PetServiceImpl implements PetService {
         petRepository.save(pet);
         return modelMapper.map(pet, PetDto.class);
     }
+
     @Override
     public PetDto plusDeadLine(String id){
         Pet pet = petRepository.findById(id).orElseThrow(PetNotFoundException::new);
@@ -108,8 +109,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public PetDto removePetByCaption(String caption) {
-        Pet pet=petRepository.findById(caption).orElseThrow(PetNotFoundException::new);
+    public PetDto removePetByCaption(String id) {
+        Pet pet=petRepository.findById(id).orElseThrow(PetNotFoundException::new);
         petRepository.delete(pet);
         return modelMapper.map(pet, PetDto.class);
     }

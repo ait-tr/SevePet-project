@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -26,9 +27,13 @@ public class UserAccount implements UserDetails {
     private String website;
     private String phone;
     private String telegram;//возможность заменить на чат
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role = Role.USER;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
     public UserAccount(String login,String avatar, String password, String fullName, String email, String website, String phone, String telegram) {
         this.login = login;
@@ -41,14 +46,14 @@ public class UserAccount implements UserDetails {
         this.telegram = telegram;
     }
 
-    public boolean changeRole() {
-        this.role = (this.role == Role.USER) ? Role.ADMINISTRATOR : Role.USER;
-        return true;
-    }
+//    public boolean changeRole() {
+//        this.role = (this.role == Role.USER) ? Role.ADMINISTRATOR : Role.USER;
+//        return true;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return roles;
     }
 
     @Override

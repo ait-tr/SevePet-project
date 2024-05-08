@@ -1,6 +1,5 @@
 package ait.cohort34.accounting.service;
 
-import ait.cohort34.accounting.dao.RoleRepository;
 import ait.cohort34.accounting.dao.UserAccountRepository;
 import ait.cohort34.accounting.dto.*;
 import ait.cohort34.accounting.dto.exceptions.UserExistsException;
@@ -8,6 +7,7 @@ import ait.cohort34.accounting.dto.exceptions.UserNotFoundException;
 import ait.cohort34.accounting.model.UserAccount;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,6 @@ import java.util.List;
 public class UserAccountServiceImpl implements UserAccountService, CommandLineRunner {
 
     final UserAccountRepository userAccountRepository;
-    final RoleRepository roleRepository;
     final ModelMapper modelMapper;
     final PasswordEncoder passwordEncoder;
 

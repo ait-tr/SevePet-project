@@ -8,6 +8,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -71,14 +72,14 @@ this.roleRepository = roleRepository;
         }
     }
 
-    public Claims getAccessClaims(String accessToken) {
+    public Claims getAccessClaims(@NonNull String accessToken) {
         return getClaims(accessToken, accessKey);
     }
 
-    public Claims getRefreshClaims(String refreshToken) {
+    public Claims getRefreshClaims(@NonNull String refreshToken) {
         return getClaims(refreshToken, refreshKey);
     }
-    private Claims getClaims(String token, SecretKey key) {
+    private Claims getClaims(@NonNull String token,@NonNull SecretKey key) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

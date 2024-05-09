@@ -1,5 +1,7 @@
 package ait.cohort34.security.service;
 
+import ait.cohort34.accounting.dto.UserAuthDto;
+import ait.cohort34.accounting.dto.UserRegisterDto;
 import ait.cohort34.accounting.model.UserAccount;
 import ait.cohort34.accounting.service.UserService;
 import ait.cohort34.security.AuthInfo;
@@ -26,8 +28,8 @@ public AuthService(UserService userService, TokenService tokenService,BCryptPass
     this.encoder = encoder;
     this.refreshStorage=new HashMap<>();
 }
-public TokenResponseDto login(@NonNull UserAccount inboundUser) throws AuthenticationException {
-    String username = inboundUser.getUsername();
+public TokenResponseDto login(@NonNull UserAuthDto inboundUser) throws AuthenticationException {
+    String username = inboundUser.getLogin();
     UserAccount foundUser=(UserAccount) userService.loadUserByUsername(username);
     if(encoder.matches(inboundUser.getPassword(), foundUser.getPassword())) {
         String accessToken = tokenService.generateAccessToken(foundUser);

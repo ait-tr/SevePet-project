@@ -1,5 +1,7 @@
 package ait.cohort34.security.controller;
 
+import ait.cohort34.accounting.dto.UserAuthDto;
+import ait.cohort34.accounting.dto.UserRegisterDto;
 import ait.cohort34.accounting.model.UserAccount;
 import ait.cohort34.security.dto.RefreshRequestDto;
 import ait.cohort34.security.dto.TokenResponseDto;
@@ -20,8 +22,10 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
+
+
     @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> login(@RequestBody UserAccount userAccount) {
+    public ResponseEntity<TokenResponseDto> login(@RequestBody UserAuthDto userAccount) {
         try{
             TokenResponseDto responseDto=authService.login(userAccount);
             return ResponseEntity.ok(responseDto);

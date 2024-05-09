@@ -58,7 +58,7 @@ public class UserAccount implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getLogin();
+        return this.login;
     }
 
     @Override

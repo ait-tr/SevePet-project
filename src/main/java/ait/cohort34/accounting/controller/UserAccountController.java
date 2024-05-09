@@ -19,10 +19,10 @@ public class UserAccountController {
     public UserDto register(@RequestBody UserRegisterDto userRegisterDto) {
         return userAccountService.register(userRegisterDto);
     }
-    @PostMapping("/login")
-    public UserDto login(Principal principal) {
-        return userAccountService.getUser(principal.getName());
-    }
+//    @PostMapping("/login")
+//    public UserDto login(Principal principal) {
+//        return userAccountService.getUser(principal.getName());
+//    }
 
     @GetMapping("/users")
     public List<UserDto> getUsers() {

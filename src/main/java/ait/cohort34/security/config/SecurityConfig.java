@@ -4,6 +4,7 @@ import ait.cohort34.security.filter.TokenFilter;
 import ait.cohort34.security.service.TokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,7 @@ public class SecurityConfig {
         this.tokenFilter = tokenFilter;
     }
     @Bean
+    @Primary
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
@@ -34,8 +36,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(x->x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(x->x
-                        .requestMatchers(HttpMethod.GET,"/account/user/{login}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/login","/refresh").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/account/user/{login}").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/auth/login","/auth/refresh","/account").permitAll()
+//                        .requestMatchers(HttpMethod.POST,"/pet/{login}").permitAll()
                         .requestMatchers("/pet/found/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(tokenFilter, UsernamePasswordAuthenticationFilter.class)

@@ -11,9 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class UpdatePetDto {
     String caption;
-    String type;// в аптейд не нужно
     String category;
-    String breed;// не нужно
     String gender;
     String age;
     Boolean disability;
@@ -21,5 +19,4 @@ public class UpdatePetDto {
     String country;
     String city;
     String description;
-    String firma;// не нужно
 }

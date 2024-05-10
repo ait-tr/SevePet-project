@@ -24,9 +24,9 @@ public class Pet {
     String author;
     String type;
     String category;
-    String breed;//не нужна 
+
     String gender;
-    String age;//String
+    String age;
     Boolean disability;
     @ElementCollection
     Set<String> photo;
@@ -36,7 +36,7 @@ public class Pet {
     LocalDate dateCreate  = LocalDate.now();
     LocalDate deadline = LocalDate.now().plusMonths(3);
 
-    public Pet(String id,String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String breed, String category) {
+    public Pet(String id,String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String category) {
         this.id = id;
         this.caption = caption;
         this.type = type;
@@ -47,11 +47,6 @@ public class Pet {
         this.disability = disability;
         this.age = age;
         this.gender = gender;
-        this.breed = breed;
         this.category = category;
-    }
-    //добавить метод по продлению дедлайна
-    public LocalDate plusDeadline() {
-        return deadline.plusMonths(3);
     }
 }

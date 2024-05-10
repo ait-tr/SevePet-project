@@ -38,7 +38,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(x->x
                         .requestMatchers(HttpMethod.GET,"/account/user/{login}").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/login","/auth/refresh","/account").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/pet/{login}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/pet/{id}","/account/user/{login}").hasRole("ADMIN")
+                   //     .requestMatchers(HttpMethod.PUT,"/pet/update/{id}","/account/user/{login}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/account/user/{login}/role").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/account/users").hasRole("ADMIN")
                         .requestMatchers("/pet/found/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(tokenFilter, UsernamePasswordAuthenticationFilter.class)

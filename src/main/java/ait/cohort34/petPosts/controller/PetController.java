@@ -4,6 +4,8 @@ import ait.cohort34.petPosts.dto.NewPetDto;
 import ait.cohort34.petPosts.dto.PetDto;
 import ait.cohort34.petPosts.dto.UpdatePetDto;
 import ait.cohort34.petPosts.service.PetService;
+import ait.cohort34.security.service.AuthService;
+import ait.cohort34.security.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class PetController{
     @Autowired
     final PetService petService;
+    final AuthService authService;
 
-    @PostMapping("{login}")
-    public PetDto addNewPet(@PathVariable String login,@RequestBody NewPetDto newPetDto) {//сделать запрос по токену
-        return petService.addNewPet(login,newPetDto);
+    @PostMapping
+    public PetDto addNewPet(@RequestBody NewPetDto newPetDto) {//сделать запрос по токену
+        return petService.addNewPet((String)authService.getAuthInfo().getPrincipal(),newPetDto);
         // в дальнейшем при создании поста будет передаваться принципал логин что упростит отправку запроса
     }
     @GetMapping("/found/caption/{caption}")
@@ -57,13 +60,8 @@ public class PetController{
         return petService.updatePet(id,updatePetDto);
     }
 
-    @PutMapping("/addTime/{id}")
-    public PetDto updatePetTime(@PathVariable String id) {
-        return petService.plusDeadLine(id);
-    }
-
-    @DeleteMapping("/{caption}")
-    public PetDto removePetByCaption(@PathVariable String caption) {
-        return petService.removePetByCaption(caption);
+    @DeleteMapping("/{id}")
+    public PetDto removePetByCaption(@PathVariable String id) {
+        return petService.removePetById(id);
     }
 }

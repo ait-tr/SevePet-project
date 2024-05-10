@@ -7,8 +7,10 @@ import ait.cohort34.accounting.dto.exceptions.UserExistsException;
 import ait.cohort34.accounting.dto.exceptions.UserNotFoundException;
 import ait.cohort34.accounting.model.Role;
 import ait.cohort34.accounting.model.UserAccount;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,8 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
     final UserAccountRepository userAccountRepository;
     final ModelMapper modelMapper;
     final PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private EntityManager entityManager;
     final RoleRepository roleRepository;
 
     @Override
@@ -93,11 +96,18 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
         userAccountRepository.save(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
     }
-
+    @Transactional
     @Override
     public boolean changeRole(String login) {
         UserAccount userAccount = userAccountRepository.findById(login).orElseThrow(UserNotFoundException::new);
-//        userAccount.changeRole();
+        List<Role> roles = entityManager.createQuery("SELECT r FROM Role r WHERE r.title = :title", Role.class)
+                .setParameter("title", "ROLE_ADMIN")
+                .getResultList();
+        if (!roles.isEmpty()) {
+            Role userRole = roles.get(0);
+            roleRepository.save(userRole);
+            userAccount.setRoles(new HashSet<>(Collections.singletonList(userRole)));
+        }
         userAccountRepository.save(userAccount);
         return true;
     }

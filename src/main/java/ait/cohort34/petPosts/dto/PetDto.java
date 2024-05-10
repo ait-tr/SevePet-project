@@ -16,7 +16,6 @@ public class PetDto {
     String caption;
     String type;
     String category;
-    String breed;
     String gender;
     String age;
     Boolean disability;

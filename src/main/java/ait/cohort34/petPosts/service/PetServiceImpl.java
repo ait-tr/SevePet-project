@@ -93,23 +93,13 @@ public class PetServiceImpl implements PetService {
         pet.setDisability(updatePetDto.getDisability());
         pet.setCity(updatePetDto.getCity());
         pet.setDescription(updatePetDto.getDescription());
-        pet.setBreed(updatePetDto.getBreed());
-        pet.setType(updatePetDto.getType());
         pet.setPhoto(updatePetDto.getPhoto());
         petRepository.save(pet);
         return modelMapper.map(pet, PetDto.class);
     }
 
     @Override
-    public PetDto plusDeadLine(String id){
-        Pet pet = petRepository.findById(id).orElseThrow(PetNotFoundException::new);
-        pet.plusDeadline();
-        petRepository.save(pet);
-        return modelMapper.map(pet, PetDto.class);
-    }
-
-    @Override
-    public PetDto removePetByCaption(String id) {
+    public PetDto removePetById(String id) {
         Pet pet=petRepository.findById(id).orElseThrow(PetNotFoundException::new);
         petRepository.delete(pet);
         return modelMapper.map(pet, PetDto.class);

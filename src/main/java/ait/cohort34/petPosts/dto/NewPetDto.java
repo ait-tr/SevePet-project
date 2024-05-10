@@ -15,7 +15,6 @@ public class NewPetDto {
     String author;
     String type;
     String category;
-    String breed;
     String gender;
     String age;
     Boolean disability;

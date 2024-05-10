@@ -1,9 +1,11 @@
 package ait.cohort34.accounting.service;
 
+import ait.cohort34.accounting.dao.RoleRepository;
 import ait.cohort34.accounting.dao.UserAccountRepository;
 import ait.cohort34.accounting.dto.*;
 import ait.cohort34.accounting.dto.exceptions.UserExistsException;
 import ait.cohort34.accounting.dto.exceptions.UserNotFoundException;
+import ait.cohort34.accounting.model.Role;
 import ait.cohort34.accounting.model.UserAccount;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -23,6 +27,8 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
     final ModelMapper modelMapper;
     final PasswordEncoder passwordEncoder;
 
+    final RoleRepository roleRepository;
+
     @Override
     @Transactional
     public UserDto register(UserRegisterDto userRegisterDto) {
@@ -31,6 +37,12 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
         }
         UserAccount userAccount = modelMapper.map(userRegisterDto, UserAccount.class);
         String password = passwordEncoder.encode(userRegisterDto.getPassword());
+        Role userRole = roleRepository.findByTitle("ROLE_USER");
+        if (userRole == null) {
+            userRole = new Role("ROLE_USER");
+            roleRepository.save(userRole);
+        }
+        userAccount.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userAccount.setPassword(password);
         userAccountRepository.save(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
@@ -109,6 +121,12 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
         if (!userAccountRepository.existsById("admin")) {
             String password = passwordEncoder.encode("admin");
             UserAccount userAccount = new UserAccount("admin", "", password, "","","","","");
+            Role userRole = roleRepository.findByTitle("ADMIN");
+            if (userRole == null) {
+                userRole = new Role("ROLE_ADMIN");
+                roleRepository.save(userRole);
+            }
+            userAccount.setRoles(new HashSet<>(Collections.singletonList(userRole)));
 //            userAccount.changeRole();
             userAccountRepository.save(userAccount);
         }

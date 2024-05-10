@@ -2,12 +2,14 @@ package ait.cohort34.accounting.model;
 
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "role")
+@NoArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id
@@ -17,6 +19,16 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "title")
     private String title;
+
+    public Role(long l, String user) {
+        this.id = l;
+        this.title = user;
+    }
+
+    public Role(String roleUser) {
+        this.title = roleUser;
+    }
+
 
     @Override
     public String getAuthority() {

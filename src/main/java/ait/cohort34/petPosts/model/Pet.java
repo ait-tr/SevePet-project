@@ -24,7 +24,7 @@ public class Pet {
     String author;
     String type;
     String category;
-    String breed;
+    String breed;//не нужна 
     String gender;
     String age;//String
     Boolean disability;

@@ -23,9 +23,9 @@ public class PetController{
         return petService.addNewPet((String)authService.getAuthInfo().getPrincipal(),newPetDto);
         // в дальнейшем при создании поста будет передаваться принципал логин что упростит отправку запроса
     }
-    @GetMapping("/found/caption/{caption}")
-    public PetDto findPetByCaption(@PathVariable String caption) {
-        return petService.findPetByCaption(caption);
+    @GetMapping("/found/type/{type}")
+    public Iterable<PetDto> findPetByType(@PathVariable String type) {
+        return petService.findPetByType(type);
     }
     @GetMapping("/found/age/{age}")
     public Iterable<PetDto> findPetsByAge(@PathVariable String age) {

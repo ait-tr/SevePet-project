@@ -26,12 +26,14 @@ public class PetServiceImpl implements PetService {
         petRepository.save(pet);
         return modelMapper.map(pet, PetDto.class);
     }
-
+    @Transactional(readOnly = true)
     @Override
-    public PetDto findPetByCaption(String caption) {
-        Pet pet=petRepository.findByCaptionIgnoreCase(caption).orElseThrow(PetNotFoundException::new);
-        return modelMapper.map(pet, PetDto.class);
+    public Iterable<PetDto> findPetByType(String type) {
+        return petRepository.findByTypeIgnoreCase(type)
+                .map(s->modelMapper.map(s,PetDto.class))
+                .toList();
     }
+
     @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetsByAge(String age) {

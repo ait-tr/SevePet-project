@@ -14,7 +14,6 @@ public class UpdatePetDto {
     String category;
     String gender;
     String age;
-    Boolean disability;
     Set<String> photo;
     String country;
     String city;

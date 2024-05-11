@@ -17,8 +17,6 @@
         <java.version>17</java.version>
     </properties>
         <dependencies>
-
-
             <!-- База данных -->
 
             <dependency>

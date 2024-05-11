@@ -64,14 +64,14 @@ public class UserAccountServiceImpl implements UserAccountService, CommandLineRu
         UserAccount userAccount = userAccountRepository.findById(login).orElseThrow(UserNotFoundException::new);
         return modelMapper.map(userAccount, UserDto.class);
     }
-
+    @Transactional
     @Override
     public UserDto removeUser(String login) {
         UserAccount userAccount = userAccountRepository.findById(login).orElseThrow(UserNotFoundException::new);
         userAccountRepository.delete(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
     }
-
+    @Transactional
     @Override
     public UserDto updateUser(String login, UserEditDto userEditDto) {
         UserAccount userAccount = userAccountRepository.findById(login).orElseThrow(UserNotFoundException::new);

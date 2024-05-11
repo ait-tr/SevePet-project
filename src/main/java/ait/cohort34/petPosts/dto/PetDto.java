@@ -12,13 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PetDto {
-    String id;
+    Long  id;
     String caption;
     String type;
     String category;
     String gender;
     String age;
-    Boolean disability;
     Set<String> photo;
     String country;
     String city;

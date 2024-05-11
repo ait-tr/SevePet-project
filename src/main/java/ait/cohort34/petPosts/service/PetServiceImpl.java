@@ -83,25 +83,24 @@ public class PetServiceImpl implements PetService {
 
         return petRepository.findAll().stream().map(s->modelMapper.map(s,PetDto.class)).toList();
     }
-
+    @Transactional
     @Override
-    public PetDto updatePet(String id, UpdatePetDto updatePetDto) {
+    public PetDto updatePet(Long  id, UpdatePetDto updatePetDto) {
         Pet pet = petRepository.findById(id).orElseThrow(PetNotFoundException::new);
         pet.setCaption(updatePetDto.getCaption());
         pet.setCategory(updatePetDto.getCategory());
         pet.setGender(updatePetDto.getGender());
         pet.setAge(updatePetDto.getAge());
         pet.setCountry(updatePetDto.getCountry());
-        pet.setDisability(updatePetDto.getDisability());
         pet.setCity(updatePetDto.getCity());
         pet.setDescription(updatePetDto.getDescription());
         pet.setPhoto(updatePetDto.getPhoto());
         petRepository.save(pet);
         return modelMapper.map(pet, PetDto.class);
     }
-
+    @Transactional
     @Override
-    public PetDto removePetById(String id) {
+    public PetDto removePetById(Long  id) {
         Pet pet=petRepository.findById(id).orElseThrow(PetNotFoundException::new);
         petRepository.delete(pet);
         return modelMapper.map(pet, PetDto.class);

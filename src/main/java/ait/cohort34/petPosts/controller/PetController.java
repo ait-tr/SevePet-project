@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/pet")
+@RequestMapping("/api/pet")
 public class PetController{
     @Autowired
     final PetService petService;
@@ -56,12 +56,12 @@ public class PetController{
         return petService.findAllPets();
     }
     @PutMapping("/update/{id}")
-    public PetDto updatePet(@PathVariable String id,@RequestBody UpdatePetDto updatePetDto) {
+    public PetDto updatePet(@PathVariable Long  id,@RequestBody UpdatePetDto updatePetDto) {
         return petService.updatePet(id,updatePetDto);
     }
 
     @DeleteMapping("/{id}")
-    public PetDto removePetByCaption(@PathVariable String id) {
+    public PetDto removePetByCaption(@PathVariable Long  id) {
         return petService.removePetById(id);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
-public interface PetRepository extends JpaRepository<Pet,String> {
+public interface PetRepository extends JpaRepository<Pet,Long > {
     Stream<Pet> findByAge(String age);
     Stream<Pet> findByTypeIgnoreCase(String type);
     Stream<Pet> findByCountryIgnoreCase(String country);

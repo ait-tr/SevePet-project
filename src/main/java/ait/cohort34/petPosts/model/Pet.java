@@ -19,12 +19,12 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet {
     @Id
-    String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long  id;
     String caption;
     String author;
     String type;
     String category;
-
     String gender;
     String age;
     Boolean disability;
@@ -36,8 +36,7 @@ public class Pet {
     LocalDate dateCreate  = LocalDate.now();
     LocalDate deadline = LocalDate.now().plusMonths(3);
 
-    public Pet(String id,String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String category) {
-        this.id = id;
+    public Pet(String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String category) {
         this.caption = caption;
         this.type = type;
         this.description = description;

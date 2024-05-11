@@ -25,13 +25,13 @@ import javax.management.relation.Role;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-//    private static final String[] AUTH_WHITELIST = {
-//            "/api/v1/auth/**",
-//            "/v3/api-docs/**",
-//            "/v3/api-docs.yaml",
-//            "/swagger-ui/**",
-//            "/swagger-ui.html"
-//    };
+    private static final String[] AUTH_WHITELIST = {
+            "/api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
     final AuthService authService;
     final CustomWebSecurity webSecurity;
     final private TokenFilter tokenFilter;
@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .sessionManagement(x->x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(x->x
                         .requestMatchers(HttpMethod.GET,"/api/account/user/{login}","/api/pet/found/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/swagger-ui/**").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/auth/login","/api/auth/refresh","/api/account").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/api/pet/update/{id}","/api/account/user/{login}").access(new WebExpressionAuthorizationManager("#login == authentication.name or hasRole('ADMIN')"))
                         .requestMatchers(HttpMethod.PUT,"/api/account/user/{login}/role").hasRole("ADMIN")

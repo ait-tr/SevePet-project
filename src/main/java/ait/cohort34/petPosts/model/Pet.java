@@ -23,7 +23,7 @@ public class Pet {
     Long  id;
     String caption;
     String author;
-    String type;
+    String petType;
     String category;
     String gender;
     String age;
@@ -38,7 +38,7 @@ public class Pet {
 
     public Pet(String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String category) {
         this.caption = caption;
-        this.type = type;
+        this.petType = type;
         this.description = description;
         this.city = city;
         this.country = country;

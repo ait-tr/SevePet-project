@@ -29,53 +29,22 @@ public class PetServiceImpl implements PetService {
     @Transactional(readOnly = true)
     @Override
     public Iterable<PetDto> findPetByType(String type) {
-        return petRepository.findByTypeIgnoreCase(type)
+        return petRepository.findByPetTypeIgnoreCase(type)
                 .map(s->modelMapper.map(s,PetDto.class))
+                .toList();
+    }
+    @Transactional(readOnly = true)
+    @Override
+    public Iterable<PetDto> findPetsByFilter(String petType, String age, String gender, String country, String category, Boolean disability, String author) {
+        return petRepository.findPetsByFilter(petType, age, gender, country, category,  disability, author)
+                .map(pet -> modelMapper.map(pet, PetDto.class))
                 .toList();
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public Iterable<PetDto> findPetsByAge(String age) {
-        return petRepository.findByAge(age)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
-    }
-    @Transactional(readOnly = true)
-    @Override
-    public Iterable<PetDto> findPetsByGender(String gender) {
-        return petRepository.findByGenderIgnoreCase(gender)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
-    }
-    @Transactional(readOnly = true)
-    @Override
-    public Iterable<PetDto> findPetsByCountry(String country) {
-        return petRepository.findByCountryIgnoreCase(country)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
-    }
-    @Transactional(readOnly = true)
-    @Override
-    public Iterable<PetDto> findPetsByCategory(String category) {
-        return petRepository.findByCategoryIgnoreCase(category)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Iterable<PetDto> findPetsByDisability(Boolean disability) {
-        return petRepository.findByDisability(disability)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
-    }
-    @Transactional(readOnly = true)
-    @Override
-    public Iterable<PetDto> findPetsByAuthor(String author) {
-        return petRepository.findByAuthorIgnoreCase(author)
-                .map(s->modelMapper.map(s,PetDto.class))
-                .toList();
+    public PetDto findPetById(Long id) {
+        Pet pet= petRepository.findById(id).orElseThrow(PetNotFoundException::new);
+        return modelMapper.map(pet, PetDto.class);
     }
 
     @Override

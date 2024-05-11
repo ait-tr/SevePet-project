@@ -7,13 +7,11 @@ import ait.cohort34.petPosts.dto.UpdatePetDto;
 public interface PetService {
     PetDto addNewPet(String login,NewPetDto newPetDto);
     Iterable<PetDto> findPetByType(String type);
-    Iterable<PetDto> findPetsByAge(String age);
-    Iterable<PetDto> findPetsByGender(String gender);
-    Iterable<PetDto> findPetsByCountry(String country);
-    Iterable<PetDto> findPetsByCategory(String category);
-    Iterable<PetDto> findPetsByDisability(Boolean disability);
-    Iterable<PetDto> findPetsByAuthor(String author);
     Iterable<PetDto> findAllPets();
     PetDto updatePet(Long  id, UpdatePetDto updatePetDto);
     PetDto removePetById(Long  id);
+
+    Iterable<PetDto> findPetsByFilter(String petType, String age, String gender, String country, String category, Boolean disability, String author);
+
+    PetDto findPetById(Long id);
 }

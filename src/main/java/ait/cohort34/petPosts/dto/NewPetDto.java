@@ -12,7 +12,7 @@ import java.util.Set;
 public class NewPetDto {
     String caption;
     String author;
-    String type;
+    String petType;
     String category;
     String gender;
     String age;

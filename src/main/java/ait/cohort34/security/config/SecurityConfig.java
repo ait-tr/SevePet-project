@@ -4,6 +4,7 @@ import ait.cohort34.security.filter.TokenFilter;
 import ait.cohort34.security.service.AuthService;
 import ait.cohort34.security.service.CustomWebSecurity;
 import ait.cohort34.security.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -35,6 +36,7 @@ public class SecurityConfig {
     final AuthService authService;
     final CustomWebSecurity webSecurity;
     final private TokenFilter tokenFilter;
+    @Autowired
     public SecurityConfig(AuthService authService, CustomWebSecurity webSecurity, TokenFilter tokenFilter) {
         this.authService = authService;
         this.webSecurity = webSecurity;
@@ -66,9 +68,4 @@ public class SecurityConfig {
                 .addFilterAfter(tokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
-
-
-
-
 }

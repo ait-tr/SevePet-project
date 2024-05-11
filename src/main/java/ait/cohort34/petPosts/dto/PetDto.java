@@ -14,7 +14,7 @@ import java.util.Set;
 public class PetDto {
     Long  id;
     String caption;
-    String type;
+    String petType;
     String category;
     String gender;
     String age;

@@ -6,25 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
-@EqualsAndHashCode(of = "caption")
 @NoArgsConstructor
 @AllArgsConstructor
 public class PetDto {
+    Long  id;
     String caption;
-    String type;
+    String petType;
     String category;
-    String breed;
     String gender;
-    int age;
-    Boolean disability;
-    String photo;
+    String age;
+    Set<String> photo;
     String country;
     String city;
     String description;
-    String clas;
-    String personFirstName;
-    String personLastName;
     LocalDate dateCreate;
+    LocalDate dateDeadline;
 }

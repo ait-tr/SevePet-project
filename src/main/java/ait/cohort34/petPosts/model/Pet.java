@@ -1,9 +1,7 @@
 package ait.cohort34.petPosts.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,39 +9,36 @@ import lombok.Setter;
 
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = "caption")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "pets")
 public class Pet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long  id;
     String caption;
     String author;
-    String type;
+    String petType;
     String category;
-    String breed;
     String gender;
-    int age;
+    String age;
     Boolean disability;
-    String photo;
+    @ElementCollection
+    Set<String> photo;
     String country;
     String city;
     String description;
-    String clas;
-    String personFirstName;
-    String personLastName;
     LocalDate dateCreate  = LocalDate.now();
-    //deadline data
+    LocalDate deadline = LocalDate.now().plusMonths(3);
 
-    public Pet(String caption, String type, String personLastName, String personFirstName, String clas, String description, String city, String country, String photo, Boolean disability, int age, String gender, String breed, String category) {
+    public Pet(String caption, String type, String description, String city, String country, Set<String> photo, Boolean disability, String age, String gender, String category) {
         this.caption = caption;
-        this.type = type;
-        this.personLastName = personLastName;
-        this.personFirstName = personFirstName;
-        this.clas = clas;
+        this.petType = type;
         this.description = description;
         this.city = city;
         this.country = country;
@@ -51,7 +46,6 @@ public class Pet {
         this.disability = disability;
         this.age = age;
         this.gender = gender;
-        this.breed = breed;
         this.category = category;
     }
 }
